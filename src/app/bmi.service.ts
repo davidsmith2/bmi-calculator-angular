@@ -1,34 +1,38 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {Http, Response} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 
 import {Item} from './item';
 
 declare var _:any;
 
-let items = [];
-
 @Injectable()
 export class BmiService {
 
-  constructor() {
+  private bmiUrl = 'http://localhost:3000/api/bmi';
+
+  constructor(private http: Http) {
     console.log('creating service');
   }
 
-  index(): Item[] {
-    return items;
+  index(): Observable<Item[]> {
+    return this.http.get(this.bmiUrl)
+      .map((res: Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error) || 'Server error');
   }
 
-  create(item: Item) {
-    items.push(Object.assign({}, item, {
-      id: items.length + 1,
-      bmi: {
-        value: 24,
-        description: 'Overweight'
-      }
-    }));
+  create(item: Object): Observable<Item[]> {
+    return this.http.post(this.bmiUrl, item)
+      .map((res: Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error) || 'Server error');
   }
 
-  delete(id: number) {
-    items = _.reject(items, (item) => item.id === id);
+  delete(id: number): Observable<Item[]> {
+    return this.http.delete(`${this.bmiUrl}/${id}`)
+      .map((res: Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error) || 'Server error');
   }
 
 }
