@@ -1,3 +1,38 @@
-<h1>
-  {{title}}
-</h1>
+<div class="ui container two column grid">
+  <div class="column">
+    <form class="ui form large segment">
+      <div class="field">
+        <label for="lb">lb</label>
+        <input id="lb" name="lb" type="number" #pounds>
+      </div>
+      <div class="field">
+        <label for="ft">ft</label>
+        <input id="ft" name="ft" type="number" #feet>
+      </div>
+      <div class="field">
+        <label for="in">in</label>
+        <input id="in" name="in" type="number" #inches>
+      </div>
+      <button (click)="create(pounds, feet, inches)" class="ui button positive">
+        Save
+      </button>
+    </form>
+  </div>
+  <div class="column">
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Ago</th>
+        <th>Value</th>
+        <th>Description</th>
+        <th>Mode</th>
+        <th>Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr app-item *ngFor="let item of index()" [item]="item"></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
