@@ -1,6 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 
-import Item from './item.model';
+import {Item} from '../item';
 import {BmiService} from "../bmi.service";
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
+import {Item} from "./item";
 import {BmiService} from "./bmi.service";
-import Item from "./item/item.model";
 
 @Component({
   selector: 'app-root',
@@ -13,15 +13,26 @@ import Item from "./item/item.model";
 })
 
 export class AppComponent {
+  item: Item;
+
   constructor(private _bmiService: BmiService) {
+  }
+
+  ngOnInit() {
+    this.item = {};
   }
 
   index() {
     return this._bmiService.index();
   }
 
-  create(pounds: HTMLInputElement, feet: HTMLInputElement, inches: HTMLInputElement): boolean {
-    this._bmiService.create(new Item(999, {}, 'metric'));
-    return false;
+  create(model: Item, isValid: boolean) {
+    this._bmiService.create(model);
+    this.item = {};
   }
+
+  isMode(mode) {
+    return this.item.mode === mode;
+  }
+
 }

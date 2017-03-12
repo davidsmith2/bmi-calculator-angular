@@ -1,25 +1,100 @@
 <div class="ui container two column grid">
   <div class="column">
-    <form class="ui form large segment">
-      <div class="field">
-        <label for="lb">lb</label>
-        <input id="lb" name="lb" type="number" #pounds>
+    <form #f="ngForm" class="ui form large segment" (submit)="create(f.value, f.valid)" novalidate>
+      <div class="field inline">
+        <div class="ui radio checkbox">
+          <input
+            id="standard"
+            name="mode"
+            [(ngModel)]="item.mode"
+            #name="ngModel"
+            type="radio"
+            value="standard"
+          >
+          <label for="standard">Standard</label>
+        </div>
+        <div class="ui radio checkbox">
+          <input
+            id="metric"
+            name="mode"
+            [(ngModel)]="item.mode"
+            #name="ngModel"
+            type="radio"
+            value="metric"
+          >
+          <label for="metric">Metric</label>
+        </div>
       </div>
-      <div class="field">
-        <label for="ft">ft</label>
-        <input id="ft" name="ft" type="number" #feet>
+      <div [hidden]="!isMode('standard')">
+        <div class="grouped fields">
+          <div class="field">
+            <label for="lb">lb</label>
+            <input
+              id="lb"
+              name="lb"
+              [(ngModel)]="item.lb"
+              #name="ngModel"
+              [required]="isMode('standard')"
+              type="number"
+            >
+          </div>
+          <div class="field">
+            <label for="ft">ft</label>
+            <input
+              id="ft"
+              name="ft"
+              [(ngModel)]="item.ft"
+              #name="ngModel"
+              [required]="isMode('standard')"
+              type="number"
+            >
+          </div>
+          <div class="field">
+            <label for="in">in</label>
+            <input
+              id="in"
+              name="in"
+              [(ngModel)]="item.in"
+              #name="ngModel"
+              [required]="isMode('standard')"
+              type="number"
+            >
+          </div>
+        </div>
       </div>
-      <div class="field">
-        <label for="in">in</label>
-        <input id="in" name="in" type="number" #inches>
+      <div [hidden]="!isMode('metric')">
+        <div class="grouped fields">
+          <div class="field">
+            <label for="kg">kg</label>
+            <input
+              id="kg"
+              name="kg"
+              [(ngModel)]="item.kg"
+              #name="ngModel"
+              [required]="isMode('metric')"
+              type="number"
+            >
+          </div>
+          <div class="field">
+            <label for="cm">cm</label>
+            <input
+              id="cm"
+              name="cm"
+              [(ngModel)]="item.cm"
+              #name="ngModel"
+              [required]="isMode('metric')"
+              type="number"
+            >
+          </div>
+        </div>
       </div>
-      <button (click)="create(pounds, feet, inches)" class="ui button positive">
+      <button class="ui submit button positive" [disabled]="!f.valid" type="submit">
         Save
       </button>
     </form>
   </div>
   <div class="column">
-    <table>
+    <table class="ui celled table">
       <thead>
       <tr>
         <th>ID</th>
