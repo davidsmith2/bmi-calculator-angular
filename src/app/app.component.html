@@ -8,6 +8,7 @@
             name="mode"
             [(ngModel)]="item.mode"
             #name="ngModel"
+            [required]="!isMode('metric')"
             type="radio"
             value="standard"
           >
@@ -19,6 +20,7 @@
             name="mode"
             [(ngModel)]="item.mode"
             #name="ngModel"
+            [required]="!isMode('standard')"
             type="radio"
             value="metric"
           >
@@ -88,7 +90,7 @@
           </div>
         </div>
       </div>
-      <button class="ui submit button positive" [disabled]="!f.valid" type="submit">
+      <button class="ui submit button positive" [disabled]="f.pristine || !f.valid" type="submit">
         Save
       </button>
     </form>

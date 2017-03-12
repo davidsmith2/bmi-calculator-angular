@@ -19,7 +19,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.item = {};
+    this.item = {mode: 'standard'};
   }
 
   index() {
@@ -28,7 +28,7 @@ export class AppComponent {
 
   create(model: Item, isValid: boolean) {
     this._bmiService.create(model);
-    this.item = {};
+    this.item = {mode: 'standard'};
   }
 
   isMode(mode) {
