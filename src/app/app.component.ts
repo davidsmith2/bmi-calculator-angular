@@ -1,33 +1,41 @@
-import {Component} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import {Item} from "./item";
-import {BmiService} from "./bmi.service";
+import { Item } from "./item";
+import { BmiService } from "./services/bmi.service";
+import { NotificationsService } from "./services/notifications.service";
 
 declare var _:any;
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: [
-    BmiService
-  ]
+  styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnDestroy, OnInit {
   item: Item;
   list: Item[];
+  messages = [];
+  connection;
 
-  constructor(private _bmiService: BmiService) {
+  constructor(private BmiService: BmiService, private NotificationsService: NotificationsService) {
   }
 
   ngOnInit() {
     this.item = {mode: 'standard'};
-    this.index();
+    this.connection = this.NotificationsService.getMessages().subscribe(message => {
+      this.messages.push(message);
+      this.index();
+    });
+    this.notify({type: 'index'});
+  }
+
+  ngOnDestroy() {
+    this.connection.unsubscribe();
   }
 
   index() {
-    return this._bmiService.index()
+    return this.BmiService.index()
       .subscribe(
         list => this.list = list,
         err => { console.log(err); }
@@ -36,23 +44,26 @@ export class AppComponent {
 
   create(model: Item, isValid: boolean) {
     const cleanItem = _.pickBy(model, (v) => !_.isUndefined(v));
-    this._bmiService.create(cleanItem)
+    this.BmiService.create(cleanItem)
       .subscribe(
         () => {
           this.item = {mode: 'standard'};
-          this.index();
+          this.notify({type: 'create'});
         },
         err => { console.log(err); }
       );
   }
 
-  isMode(mode: string) {
-    return this.item.mode === mode;
+  delete(id: number) {
+    this.notify({type: 'delete'});
   }
 
-  handleItemDeleted(id: number) {
-    console.log(`${id} deleted!`);
-    this.index();
+  notify(message: Object) {
+    this.NotificationsService.sendMessage(message);
+  }
+
+  isMode(mode: string) {
+    return this.item.mode === mode;
   }
 
 }

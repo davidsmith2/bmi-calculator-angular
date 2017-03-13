@@ -23,6 +23,7 @@
         "assets/semantic/semantic.min.css"
       ],
       "scripts": [
+        "../node_modules/socket.io-client/dist/socket.io.js",
         "../node_modules/lodash/lodash.js",
         "../node_modules/jquery/dist/jquery.js",
         "assets/semantic/semantic.min.js"

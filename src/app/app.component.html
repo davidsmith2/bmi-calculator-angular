@@ -107,7 +107,7 @@
       </tr>
       </thead>
       <tbody>
-        <tr app-item *ngFor="let item of list" [item]="item" (itemDeleted)="handleItemDeleted($event)"></tr>
+        <tr app-item *ngFor="let item of list" [item]="item" (itemDeleted)="delete($event)"></tr>
       </tbody>
     </table>
   </div>

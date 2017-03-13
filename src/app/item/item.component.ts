@@ -7,15 +7,13 @@ import {
 } from '@angular/core';
 
 import {Item} from '../item';
-import {BmiService} from "../bmi.service";
+import {BmiService} from "../services/bmi.service";
 
 @Component({
   selector: '[app-item]',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.css'],
-  providers: [
-    BmiService
-  ]
+  providers: [BmiService]
 })
 
 export class ItemComponent implements OnInit {

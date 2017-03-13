@@ -23,8 +23,10 @@
     "core-js": "^2.4.1",
     "jquery": "^3.1.1",
     "lodash": "^4.17.4",
+    "nes": "^6.4.0",
     "ng-semantic": "^1.1.13",
     "rxjs": "^5.1.0",
+    "socket.io-client": "^1.7.3",
     "zone.js": "^0.7.6"
   },
   "devDependencies": {
@@ -32,7 +34,9 @@
     "@angular/compiler-cli": "^2.4.0",
     "@types/jasmine": "2.5.38",
     "@types/lodash": "^4.14.55",
+    "@types/nes": "^6.2.6",
     "@types/node": "~6.0.60",
+    "@types/socket.io-client": "^1.4.29",
     "codelyzer": "~2.0.0",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",
