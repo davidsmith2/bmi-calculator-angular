@@ -1,114 +1,127 @@
-<div class="ui container two column grid">
-  <div class="column">
-    <form #f="ngForm" class="ui form large segment" (submit)="create(f.value, f.valid)" novalidate>
-      <div class="field inline">
-        <div class="ui radio checkbox">
-          <input
-            id="standard"
-            name="mode"
-            [(ngModel)]="item.mode"
-            #name="ngModel"
-            [required]="!isMode('metric')"
-            type="radio"
-            value="standard"
-          >
-          <label for="standard">Standard</label>
-        </div>
-        <div class="ui radio checkbox">
-          <input
-            id="metric"
-            name="mode"
-            [(ngModel)]="item.mode"
-            #name="ngModel"
-            [required]="!isMode('standard')"
-            type="radio"
-            value="metric"
-          >
-          <label for="metric">Metric</label>
-        </div>
-      </div>
-      <div [hidden]="!isMode('standard')">
-        <div class="grouped fields">
-          <div class="field">
-            <label for="lb">lb</label>
+<div class="ui container grid">
+  <header class="twelve wide column">
+    <h1 class="pull-left">
+      Body mass index (BMI)
+    </h1>
+    <p class="pull-right">
+      A measure of body fat in adults
+    </p>
+  </header>
+  <main class="row">
+    <div class="six wide column">
+      <form #f="ngForm" class="ui form large segment" (submit)="create(f.value, f.valid)" novalidate>
+        <div class="field inline">
+          <div class="ui radio checkbox">
             <input
-              id="lb"
-              name="lb"
-              [(ngModel)]="item.lb"
+              id="standard"
+              name="mode"
+              [(ngModel)]="item.mode"
               #name="ngModel"
-              [required]="isMode('standard')"
-              type="number"
+              [required]="!isMode('metric')"
+              type="radio"
+              value="standard"
             >
+            <label for="standard">Standard</label>
           </div>
-          <div class="field">
-            <label for="ft">ft</label>
+          <div class="ui radio checkbox">
             <input
-              id="ft"
-              name="ft"
-              [(ngModel)]="item.ft"
+              id="metric"
+              name="mode"
+              [(ngModel)]="item.mode"
               #name="ngModel"
-              [required]="isMode('standard')"
-              type="number"
+              [required]="!isMode('standard')"
+              type="radio"
+              value="metric"
             >
-          </div>
-          <div class="field">
-            <label for="in">in</label>
-            <input
-              id="in"
-              name="in"
-              [(ngModel)]="item.in"
-              #name="ngModel"
-              [required]="isMode('standard')"
-              type="number"
-            >
+            <label for="metric">Metric</label>
           </div>
         </div>
-      </div>
-      <div [hidden]="!isMode('metric')">
-        <div class="grouped fields">
-          <div class="field">
-            <label for="kg">kg</label>
-            <input
-              id="kg"
-              name="kg"
-              [(ngModel)]="item.kg"
-              #name="ngModel"
-              [required]="isMode('metric')"
-              type="number"
-            >
-          </div>
-          <div class="field">
-            <label for="cm">cm</label>
-            <input
-              id="cm"
-              name="cm"
-              [(ngModel)]="item.cm"
-              #name="ngModel"
-              [required]="isMode('metric')"
-              type="number"
-            >
+        <div [hidden]="!isMode('standard')">
+          <div class="grouped fields">
+            <div class="field">
+              <label for="lb">lb</label>
+              <input
+                id="lb"
+                name="lb"
+                [(ngModel)]="item.lb"
+                #name="ngModel"
+                [required]="isMode('standard')"
+                type="number"
+              >
+            </div>
+            <div class="field">
+              <label for="ft">ft</label>
+              <input
+                id="ft"
+                name="ft"
+                [(ngModel)]="item.ft"
+                #name="ngModel"
+                [required]="isMode('standard')"
+                type="number"
+              >
+            </div>
+            <div class="field">
+              <label for="in">in</label>
+              <input
+                id="in"
+                name="in"
+                [(ngModel)]="item.in"
+                #name="ngModel"
+                [required]="isMode('standard')"
+                type="number"
+              >
+            </div>
           </div>
         </div>
-      </div>
-      <button class="ui submit button positive" [disabled]="f.pristine || !f.valid" type="submit">
-        Save
-      </button>
-    </form>
-  </div>
-  <div class="column">
-    <table class="ui celled table">
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Time ago</th>
-        <th>Value</th>
-        <th>Description</th>
-        <th>Delete</th>
-      </tr>
-      </thead>
-      <tbody>
+        <div [hidden]="!isMode('metric')">
+          <div class="grouped fields">
+            <div class="field">
+              <label for="kg">kg</label>
+              <input
+                id="kg"
+                name="kg"
+                [(ngModel)]="item.kg"
+                #name="ngModel"
+                [required]="isMode('metric')"
+                type="number"
+              >
+            </div>
+            <div class="field">
+              <label for="cm">cm</label>
+              <input
+                id="cm"
+                name="cm"
+                [(ngModel)]="item.cm"
+                #name="ngModel"
+                [required]="isMode('metric')"
+                type="number"
+              >
+            </div>
+          </div>
+        </div>
+        <button class="ui submit button positive" [disabled]="f.pristine || !f.valid" type="submit">
+          Save
+        </button>
+      </form>
+    </div>
+    <div class="six wide column">
+      <table class="ui celled table">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Time ago</th>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
         <tr app-item *ngFor="let item of list" [item]="item" (itemDeleted)="delete($event)"></tr>
-      </tbody>
-    </table>
-  </div>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer class="twelve wide column">
+    <p class="text-center">Sources: US National Institute of Health, EXTOXNET</p>
+  </footer>
 </div>
